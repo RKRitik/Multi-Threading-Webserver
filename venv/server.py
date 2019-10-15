@@ -1,45 +1,43 @@
-import concurrent.futures
 import socket
+from concurrent.futures import ThreadPoolExecutor
+from time import ctime
 from threading import Thread
-
-# Multithreaded Python server : TCP Server Socket Thread Pool
-class ClientThread(Thread):
-
-    def __init__(self, ip, port):
+PORT = 2004
+BUFSIZE = 1024
+class ClientHandler(Thread):
+    """Handles a client request."""
+    def __init__(self, client,address):
         Thread.__init__(self)
-        self.ip = ip
-        self.port = port
-        print ("[+] New server socket thread started for " + ip + ":" + str(port))
-        self.start()
+        self._client = client
+        self.address = address
+
+
     def run(self):
-        while True:
-            data = conn.recv(2048)
-            print ("message recieved " , data)
-            MESSAGE = input("Multithreaded Python server : Enter Response from Server/Enter exit:")
-            if MESSAGE == 'exit':
-                break
-            MESSAGE = MESSAGE.encode()
-            conn.send(MESSAGE)  # echo
+        print('...connected from:', address)
+        self._client.send(bytes(ctime() + '\nHave a nice day!' , 'ascii'))
+        msg = '..'
+        while len(msg)>0:
+            msg = self._client.recv(BUFSIZE)
+            print('message recieved ',msg.decode('utf-8'))
+            self._client.send(bytes('message recieved ..' , 'ascii'))
 
-# Multithreaded Python server : TCP Server Socket Program Stub
-TCP_IP = '0.0.0.0'
-TCP_PORT = 2004
-BUFFER_SIZE = 20  # Usually 1024, but we need quick response
+        self._client.close()
 
 
-tcpServer = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-tcpServer.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-tcpServer.bind((TCP_IP, TCP_PORT))
-threads = []
+import socket
+s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+host = socket.gethostname()
 
+ADDRESS = (host, PORT)
+s.bind(ADDRESS)
+s.listen(5)
+executor = ThreadPoolExecutor(max_workers=5)
+# The server now just waits for connections from clients
+# and hands sockets off to client handlers
+while True:
+    print('Waiting for connection')
+    client, address = s.accept()
 
-
-
-with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
-    for index in range(5):
-        while True:
-            tcpServer.listen(4)
-            print("Multithreaded Python server : Waiting for connections from TCP clients...")
-            (conn, (ip, port)) = tcpServer.accept()
-            print("accepted")
-            executor.submit(ClientThread.__init__(ip,port), index)
+    executor.submit(ClientHandler(client,address).start())
+    # handler = ClientHandler(client)
+    # handler.start()
