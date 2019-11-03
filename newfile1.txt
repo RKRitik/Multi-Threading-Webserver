@@ -1,0 +1,16 @@
+Thu Oct 31 15:45:46 2019
+Have a nice day!As the commonness of Voice assistants surges, organizations which
+gather discourse information to improve their assistants put a large
+number of purchasers' close to home information in danger to assaults
+by malicious programmers, who may utilize the information for
+loathsome purposes, for example, selling of private data to outsider
+organizations or manufacturing voices to make phony calls or messages
+in our name. To help battle this danger, we propose a framework which
+changes over the discourse directions into content, scrambled utilizing
+Modified RSA, and hashed with salt to be put away namelessly so the
+most programmers can get would be irregular writings of client
+inclinations. The Google Speech API and Socket associations which
+copy the correspondence among aides and servers, send encoded
+information over to the customer in content structure with the goal that
+the voice information isn't put away and the colleague gets the
+information it needs to p

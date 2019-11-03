@@ -1,9 +1,11 @@
 import socket
 
-host = socket.gethostname()
+#host = socket.gethostname()
+host = "192.168.43.97"
+print(host)
 port = 2004
 BUFFER_SIZE = 2000
-MESSAGE = input("tcpClientA: Enter message/ Enter exit:")
+#MESSAGE = input("tcpClientA: Enter message/ Enter exit:")
 
 tcpClientA = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 tcpClientA.connect((host, port))
