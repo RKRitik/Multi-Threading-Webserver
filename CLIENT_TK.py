@@ -21,24 +21,8 @@ tcpClientA.connect((host, port))
 time_start = time.time()
 
 dst='D:\os project'
-"""filename = input(str("Please enter a filename for the incoming file : "))
-file = open(filename, 'wb')
-file_data = tcpClientA.recv(1024)
-file.write(file_data)
-file.close()
-print("File has been received successfully.")"""
 
-#while True:
-#folder name
-"""fln = tcpClientA.recv(4)
-    os.chdir(dst);
-    dst = 'D:\os project'
-    dst=dst+fln+'/'
-    if not os.path.exists(dst): os.makedirs(dst)
-    fname = tcpClientA.recv(4)
-    os.chdir(dst)
-    fname = fname+'.jpg'
-    fp = open(fname,'wb')"""
+
 #filename = input(str("Please enter a filename for the incoming file : "))
     
 filename='rand' +str(random.randint(1,100)) +'.mp4'
