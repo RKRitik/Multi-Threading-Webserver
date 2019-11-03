@@ -69,4 +69,4 @@ while True:
     # handler = ClientHandler(client)
     # handler.start()
 
-root.mainloop()
+#root.mainloop()
